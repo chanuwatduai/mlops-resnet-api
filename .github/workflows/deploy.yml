@@ -44,4 +44,4 @@ jobs:
           git config --global user.name "GitHub Actions Bot"
           # เปลี่ยนYOUR_HF_USERNAME และ YOUR_SPACE_NAME ให้เป็นของคุณ 
           # เช่น https://chanuwatduai:$HF_TOKEN@huggingface.co/spaces/chanuwatduai/mlops-resnet-api
-          git push https://chanuwatduai:$HF_TOKEN@huggingface.co/spaces/chanuwatduai/mlops-resnet-api main -f
+          git push https://Chanuwat0201110:$HF_TOKEN@huggingface.co/spaces/Chanuwat0201110/mlops-resnet-api main -f
