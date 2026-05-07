@@ -33,15 +33,27 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-          
+        
+      - name: Install Git LFS
+        run: git lfs install
+        
       - name: Push to Hugging Face
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
+          # ลบประวัติเก่าทิ้ง เพื่อบังคับให้ระบบเริ่มนับไฟล์ใหญ่ใหม่ด้วย LFS
+          rm -rf .git
+          git init
+          git checkout -b main
           git config --global user.email "bot@example.com"
           git config --global user.name "GitHub Actions Bot"
-          # เปลี่ยนYOUR_HF_USERNAME และ YOUR_SPACE_NAME ให้เป็นของคุณ 
-          # เช่น https://chanuwatduai:$HF_TOKEN@huggingface.co/spaces/chanuwatduai/mlops-resnet-api
+          
+          # สั่งให้ Git LFS จัดการไฟล์โมเดลทั้งหมดที่ใหญ่เกิน 10MB
+          git lfs track "*.safetensors"
+          git lfs track "*.onnx"
+          git lfs track "*.data"
+          
+          # เซฟแล้วดันขึ้น Hugging Face
+          git add .
+          git commit -m "Deploy to Hugging Face with LFS"
           git push https://Chanuwat0201110:$HF_TOKEN@huggingface.co/spaces/Chanuwat0201110/mlops-resnet-api main -f
