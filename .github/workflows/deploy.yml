@@ -41,19 +41,21 @@ jobs:
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
-          # ลบประวัติเก่าทิ้ง เพื่อบังคับให้ระบบเริ่มนับไฟล์ใหญ่ใหม่ด้วย LFS
+          run: |
           rm -rf .git
           git init
           git checkout -b main
           git config --global user.email "bot@example.com"
           git config --global user.name "GitHub Actions Bot"
           
-          # สั่งให้ Git LFS จัดการไฟล์โมเดลทั้งหมดที่ใหญ่เกิน 10MB
+          rm -rf ModleTest
+          rm -rf __pycache__
+          
+          git lfs install
           git lfs track "*.safetensors"
           git lfs track "*.onnx"
           git lfs track "*.data"
           
-          # เซฟแล้วดันขึ้น Hugging Face
           git add .
-          git commit -m "Deploy to Hugging Face with LFS"
+          git commit -m "Final Deploy: Cleanup and LFS Support"
           git push https://Chanuwat0201110:$HF_TOKEN@huggingface.co/spaces/Chanuwat0201110/mlops-resnet-api main -f
