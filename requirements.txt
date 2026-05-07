@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+python-multipart
+pydantic
+onnxruntime
+transformers
+Pillow
+pytest
+httpx
